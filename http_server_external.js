@@ -14,22 +14,8 @@ function sendResponse(weatherData, res){
   if(weatherData){
     page += '<h1>Weather Info</h1><p>' + weatherData +'</p>';
   }
-  console.log(weatherData);
   page += '</body></html>';    
   res.end(page);
-}
-function sendError(res){
-  var page = '<html><head><title>External Example</title></head>' +
-    '<body>' +
-    '<form method="post">' +
-    'City: <input name="city"><br>' +
-    '<input type="submit" value="Weather">' +
-    '</form>' +
-    '<h1>Method Not Allowed</h1>' +
-    '</body>' +
-    '</html>'; 
-
-    res.end(page);
 }
 function parseWeather(weatherResponse, res) {
   var weatherData = '';
@@ -61,9 +47,7 @@ http.createServer(function (req, res) {
       var postParams = qstring.parse(reqData);
       getWeather(postParams.city, res);
     });
-  } else if (req.method == "GET"){
-    sendResponse(null, res);
   } else{
-    sendError(res);
+    sendResponse(null, res);
   }
 }).listen(8080);
