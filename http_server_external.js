@@ -12,9 +12,15 @@ function sendResponse(weatherData, res){
     '<input type="submit" value="Weather">' +
     '</form>';
   if(weatherData){
-    page += '<h1>Weather Info</h1><p>' + weatherData +'</p>';
+    weatherData = JSON.parse(weatherData);
+    console.log(weatherData);
+    page += '<h1>Weather Info</h1>' +
+      '<h3>City: ' + weatherData.name + '</h3>' +
+      '<p>Current Temperature: ' + weatherData.main.temp + '</p>' +
+      '<p>Main Weather Description: ' + weatherData.weather[0].main + '</p>' +
+      '<p>Expanded Weather Description: ' + weatherData.weather[0].description + '</p>';
+
   }
-  console.log(weatherData);
   page += '</body></html>';    
   res.end(page);
 }
